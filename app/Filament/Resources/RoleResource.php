@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\RoleResource\Pages;
 use App\Filament\Resources\RoleResource\RelationManagers;
+use App\Filament\Resources\RoleResource\RelationManagers\PermissionsRelationManager;
 use App\Models\Role;
 use Filament\Forms;
 use Filament\Forms\Components\TextInput;
@@ -25,7 +26,7 @@ class RoleResource extends Resource
     {
         return $form
             ->schema([
-                TextInput::make('title')
+                TextInput::make('name')
                     ->autofocus()
                     ->required()
             ]);
@@ -35,7 +36,7 @@ class RoleResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('title')
+                TextColumn::make('name')
                     ->searchable()
                     ->sortable()
             ])
@@ -56,7 +57,7 @@ class RoleResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            PermissionsRelationManager::class,
         ];
     }
 

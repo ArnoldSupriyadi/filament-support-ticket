@@ -25,7 +25,7 @@ class PermissionResource extends Resource
     {
         return $form
             ->schema([
-                TextInput::make('title')
+                TextInput::make('name')
                     ->autofocus()
             ]);
     }
@@ -34,7 +34,7 @@ class PermissionResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('title')
+                TextColumn::make('name')
                     ->searchable()
                     ->sortable()
             ])
