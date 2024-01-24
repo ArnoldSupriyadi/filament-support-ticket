@@ -12,7 +12,7 @@ class Ticket extends Model
     protected $fillable = [
         'title',
         'description',
-        'prority',
+        'priority',
         'status',
         'is_resolved',
         'comment',
@@ -40,5 +40,10 @@ class Ticket extends Model
      public function assignedBy()
     {
         return $this->belongsTo(User::class, 'assigned_by');
+    }
+
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class);
     }
 }

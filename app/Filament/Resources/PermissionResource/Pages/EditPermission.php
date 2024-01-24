@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Filament\Resources\TicketResource\Pages;
+namespace App\Filament\Resources\PermissionResource\Pages;
 
-use App\Filament\Resources\TicketResource;
+use App\Filament\Resources\PermissionResource;
 use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
 
-class EditTicket extends EditRecord
+class EditPermission extends EditRecord
 {
-    protected static string $resource = TicketResource::class;
+    protected static string $resource = PermissionResource::class;
 
     protected function getHeaderActions(): array
     {
