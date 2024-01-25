@@ -42,4 +42,24 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class);
+    }
+
+    public function hasPermission(string $permission) : bool
+    {
+        $permissionsArray = [];
+
+        foreach ($this->roles as $role)
+        {
+            foreach($role->permissions as $singlePermission)
+            {
+                $permissionsArray[] = $singlePermission->name;
+            }
+        }
+        
+        return collect($permissionsArray)->unique()->contains($permission);
+    }
 }
