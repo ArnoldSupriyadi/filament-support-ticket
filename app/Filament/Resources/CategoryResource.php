@@ -56,6 +56,7 @@ class CategoryResource extends Resource
                 TextColumn::make('slug'),
                 ToggleColumn::make('is_active')
                     ->label('Status')
+                    ->disabled(!auth()->user()->hasPermission('category_edit')),
             ])
             ->filters([
                 //
@@ -66,7 +67,8 @@ class CategoryResource extends Resource
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                    Tables\Actions\DeleteBulkAction::make()
+                        ->hidden(!auth()->user()->hasPermission('category_delete')),
                 ]),
             ]);
     }
