@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Contracts\Database\Query\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -18,5 +19,10 @@ class Category extends Model
     public function tickets()
     {
         return $this->belongsToMany(Ticket::class);
+    }
+
+    public function scopeActive(Builder $query)
+    {
+        return $query->where('is_active', true);
     }
 }
