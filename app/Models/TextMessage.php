@@ -14,7 +14,8 @@ class TextMessage extends Model
         'response',
         'send_to',
         'sent_by',
-        'status'
+        'status',
+        'remarks',
     ];
 
     CONST STATUS = [

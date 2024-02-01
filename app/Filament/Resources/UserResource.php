@@ -6,15 +6,20 @@ use App\Filament\Resources\UserResource\Pages;
 use App\Filament\Resources\UserResource\RelationManagers;
 use App\Filament\Resources\UserResource\RelationManagers\RolesRelationManager;
 use App\Models\User;
+use App\Services\TextMessageService;
 use Filament\Forms;
+use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
+use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Actions\BulkAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class UserResource extends Resource
@@ -64,6 +69,25 @@ class UserResource extends Resource
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
+                    BulkAction::make('sendBulkSms')
+                    ->modalButton('Send Message')
+                    ->icon('heroicon-o-chat-bubble-left-ellipsis')
+                    ->deselectRecordsAfterCompletion()
+                    ->form([
+                        Textarea::make('message')
+                            ->placeholder('Enter your message here')
+                            ->required()
+                            ->rows(3),
+                        Textarea::make('remarks')
+                    ])
+                    ->action(function(array $data,Collection $collection){
+                        TextMessageService::sendMessage($data, $collection);
+
+                        Notification::make()
+                                ->title('Messages Sent Successfully')
+                                ->success()
+                                ->send();
+                    }),
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
