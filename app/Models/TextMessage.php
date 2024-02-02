@@ -31,6 +31,6 @@ class TextMessage extends Model
 
     public function sentBy()
     {
-        return $this->belongsTo(User::class, 'sent_to');
+        return $this->belongsTo(User::class, 'sent_by');
     }
 }
