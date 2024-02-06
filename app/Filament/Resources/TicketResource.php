@@ -9,6 +9,7 @@ use App\Models\Role;
 use App\Models\Ticket;
 use App\Models\User;
 use Filament\Forms;
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
@@ -55,6 +56,9 @@ class TicketResource extends Resource
                     ),
                 Textarea::make('comment')
                     ->rows(3),
+                FileUpload::make('attachment')
+                    ->minSize(512)
+                    ->maxSize(1024),
             ]);
     }
 
